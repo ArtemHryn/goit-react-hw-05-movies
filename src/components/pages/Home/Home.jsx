@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Box } from 'theme-ui';
-import { NavItem } from './Home.styled';
+import { MovieItem, MoviesList, NavItem, Title } from './Home.styled';
 
 export const Home = () => {
   const location = useLocation()
@@ -21,12 +21,16 @@ export const Home = () => {
   }, []);
   return (
     <Box>
-      <h1>Trending Today</h1>
-      {trending.map(({ id, original_title }) => (
-        <NavItem key={id} to={`movies/${id}`} state={{home: location}}>
-          {original_title}
-        </NavItem>
-      ))}
+      <Title>Trending Today</Title>
+      <MoviesList>
+        {trending.map(({ id, original_title }) => (
+          <MovieItem key={id}>
+            <NavItem to={`movies/${id}`} state={{ home: location }}>
+              {original_title}
+            </NavItem>
+          </MovieItem>
+        ))}
+      </MoviesList>
     </Box>
   );
 };

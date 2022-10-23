@@ -1,39 +1,51 @@
 import { getMovieById } from 'components/services/api';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
+import { useRef } from 'react';
 import { useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { Box } from 'theme-ui';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Box } from 'components/Box';
+import { BackLink } from './MovieDetails.styled';
+import { MovieDesc } from '../Movies/MovieDesc/MovieDesc';
+import { AdditionalInfo } from 'components/AdditionalInfo/AdditionalInfo';
+import Catalog from 'components/CastLoader';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setCustomer] = useState(null);
   const location = useLocation();
+  const whereIs = useRef(location);
 
   useEffect(() => {
-    async function getMovieDetails(movieId) {
+    async function getMovieDetails() {
       const movie = await getMovieById(movieId);
       setCustomer(movie);
     }
-    getMovieDetails(+movieId);
+    getMovieDetails();
   }, [movieId]);
   if (!movie) {
     return null;
   }
-  const { original_title } = movie;
+
   return (
     <>
-      <Box>
-        <Link to={location.state?.home ?? '/'}>Back</Link>
-        <p>{original_title}</p>
+      <Box as="div" pt={50}>
+        <BackLink to={whereIs.current.state?.home ?? '/'}>⬅️Back</BackLink>
+        <Box display="flex" borderBottom="normal" pb={6} mt={6}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            alt=""
+          />
+          <MovieDesc movie={movie} />
+        </Box>
       </Box>
       <Box>
-        <h3>Additional Information</h3>
-        <ul>
-          <Link to="cast">Cast</Link>
-          <Link to="reviews">Reviews</Link>
-        </ul>
-        <Outlet />
+        <AdditionalInfo />
+        <Suspense fallback={<Catalog />}>
+          <Outlet />
+        </Suspense>
       </Box>
     </>
   );
 };
+
+export default MovieDetails;

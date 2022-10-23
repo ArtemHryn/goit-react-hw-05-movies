@@ -11,10 +11,12 @@ export const NavItem = styled(NavLink)`
   :not(:first-child) {
     margin-left: 110px;
   }
-  &.active{
-    /* background-color: tomato; */
+  &.active {
+    background-color: red;
+    color: white;
   }
-  :hover:not(.active){
-    background-color: pink;
+  :hover:not(.active),
+  :focus-visible:not(.active) {
+    color: black;
   }
 `;

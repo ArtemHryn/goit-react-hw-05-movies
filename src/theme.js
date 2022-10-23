@@ -3,6 +3,9 @@ export const theme = {
     white: '#fff',
     stats: '#000',
     btnHover: '#303f9f',
+    title: '#5FA9C7',
+    movies: '#42022A',
+    moviesHover: '#5FA9C7',
   },
   space: [0, 2, 4, 8, 16, 12, 24, 32],
   fonts: {
@@ -28,7 +31,7 @@ export const theme = {
     normal: '1px solid',
   },
   radii: {
-    normal: '2px',
+    normal: '5px',
     searchForm: '3px',
     round: '50%',
   },

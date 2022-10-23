@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-
 export const MoviesList = styled.ul`
   list-style: none;
 `;
@@ -26,4 +25,4 @@ export const Title = styled.h1`
   color: ${p => p.theme.colors.title};
   text-align: center;
   margin-bottom: ${p => p.theme.space[7]}px;
-`
+`;
